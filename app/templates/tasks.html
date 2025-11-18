@@ -8,9 +8,11 @@
 
 <!-- Add Task Form -->
 <form action="{{ url_for('tasks.add_task') }}" method="POST" class="task-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <input type="text" name="title" placeholder="Enter task title" required>
     <button type="submit">Add Task</button>
 </form>
+
 
 <hr>
 
@@ -20,11 +22,13 @@
     {% for task in tasks %}
     <li class="task-item">
 
-        <form action="{{ url_for('tasks.toggle_status', task_id=task.id) }}" method="POST" style="display:inline;">
-            <button type="submit" class="status-btn">
-                {{ task.title }} — <strong>{{ task.status }}</strong>
-            </button>
-        </form>
+    <form action="{{ url_for('tasks.toggle_status', task_id=task.id) }}" method="POST" style="display:inline;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="status-btn">
+        {{ task.title }} — <strong>{{ task.status }}</strong>
+    </button>
+</form>
+
 
     </li>
     {% endfor %}
@@ -32,8 +36,10 @@
 
 <!-- Clear All Tasks -->
 <form action="{{ url_for('tasks.clear_tasks') }}" method="POST">
+     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <button type="submit" class="clear-btn">Clear All Tasks</button>
 </form>
+
 
 {% else %}
 <p>No tasks yet. Add one above!</p>
