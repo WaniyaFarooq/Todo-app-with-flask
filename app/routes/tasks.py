@@ -11,7 +11,7 @@ def view_tasks():
     
     tasks = Task.query.all()
     return render_template('tasks.html',tasks = tasks)
-@task_bp.roue('/add',methods = ['POST'])
+@task_bp.route('/add',methods = ['POST'])
 def add_task():
     if 'user' not in session:
         return redirect(url_for('auth.login'))

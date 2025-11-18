@@ -1,5 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import CSRFProtect
+
+
+csrf = CSRFProtect()
 
 #created database object globally
 # You are creating a database object. But right now → it is empty, not connected to any Flask app.
@@ -17,15 +21,16 @@ def create_app():
     
     # to connect db to app
     db.__init__(app)
+    csrf.init_app(app)
     
     from app.routes.auth import auth_bp
-    from app.routes.auth import task_bp
+    from app.routes.tasks import task_bp
     
     app.register_blueprint(auth_bp)
     app.register_blueprint(task_bp)
     # Add all task/auth routes to my main Flask application
     # mini app ki tarah related routes 
+    app.debug = True 
     return app
     
-    
-    
+
