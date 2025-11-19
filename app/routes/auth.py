@@ -6,8 +6,8 @@ from app.forms.register import RegisterForm
 auth_bp = Blueprint('auth',__name__)
 
 USER_CREDENTIALS = {
-    'username':'Waniya',
-    'password':'1234'
+   'Waniya':'1234'
+    
 }
 
 @auth_bp.route('/login',methods = ['GET','POST'])
@@ -17,10 +17,9 @@ def login():
         username = form.username.data
         password = form.password.data
         
-        if username == USER_CREDENTIALS['username'] and password == USER_CREDENTIALS['password']:
-            session['user'] = username
+        if username in USER_CREDENTIALS and USER_CREDENTIALS[username] == password:
+            session['user'] = username   
             flash('Login Succesfully','success')
-            
             return redirect(url_for('tasks.view_tasks'))
         else:
             flash('Invalid username or password','danger sallla')
@@ -39,9 +38,7 @@ def register():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        USER_CREDENTIALS['username'] = username
-        USER_CREDENTIALS['password'] = password
-        
+        USER_CREDENTIALS[username] = password
         flash('Registered Succesfully','success')
             
         return redirect(url_for('auth.login'))
