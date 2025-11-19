@@ -20,7 +20,8 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
     
     # to connect db to app
-    db.__init__(app)
+    # db.__init__(app)
+    db.init_app(app)
     csrf.init_app(app)
     
     from app.routes.auth import auth_bp
@@ -30,7 +31,7 @@ def create_app():
     app.register_blueprint(task_bp)
     # Add all task/auth routes to my main Flask application
     # mini app ki tarah related routes 
-    app.debug = True 
+   
     return app
     
 

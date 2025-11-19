@@ -14,7 +14,7 @@
         <h1>Todo App</h1>
         <nav>
             <a href="{{url_for('tasks.view_tasks') }}">Home</a>
-            {% if 'user' in session %}
+            {% if 'user_id' in session %}
             <a href="{{url_for('auth.logout') }}">Logout</a>
             
             {% else %}
