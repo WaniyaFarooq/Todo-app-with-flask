@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template,redirect,request,url_for,flash,session
 from app.forms.login import LoginForm
+from app.forms.register import RegisterForm
 
 
 auth_bp = Blueprint('auth',__name__)
@@ -31,6 +32,21 @@ def logout():
     session.pop('user',None)
     flash('logged out','info')
     return redirect(url_for('auth.login'))
-            
         
+@auth_bp.route('/register',methods = ['GET','POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        USER_CREDENTIALS['username'] = username
+        USER_CREDENTIALS['password'] = password
+        
+        flash('Registered Succesfully','success')
+            
+        return redirect(url_for('auth.login'))
+        
+            
+    return render_template('register.html',form = form)
+       
         

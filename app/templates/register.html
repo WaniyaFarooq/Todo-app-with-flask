@@ -1,5 +1,37 @@
 {% extends "base.html" %}
-{% block title %} Registration{% endblock  %}
+
+{% block title %}Register{% endblock %}
+
 {% block content %}
-<p>Coming soon</p>
-{% endblock  %}
+
+<h2>Register</h2>
+
+<form method="POST" action="{{ url_for('auth.register') }}" class="login-form">
+
+    {{ form.hidden_tag() }}
+
+    <div>
+        {{ form.username.label }}
+        {{ form.username(class="input-field") }}
+
+        {% for error in form.username.errors %}
+           <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.password.label }}
+        {{ form.password(class="input-field") }}
+
+        {% for error in form.password.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.submit(class="submit-btn") }}
+    </div>
+
+</form>
+
+{% endblock %}
